@@ -8,17 +8,17 @@
 город нахождения магазина;  
 количество пользователей, закреплённых в этом магазине.  
 
-''sql
-select	concat(sf.first_name , ' ', sf.last_name)  as 'ФИО сотрудника',
-		cy.city as 'Город',
-		COUNT(cr.customer_id) as 'Количество пользователей магазина'		
-from sakila.store s
-inner join sakila.staff sf on sf.store_id = s.store_id 
-inner join sakila.customer cr on cr.store_id = s.store_id
-inner join sakila.address a on a.address_id = s.address_id 
-inner join sakila.city cy on cy.city_id = a.city_id 
-group by sf.staff_id, cy.city_id 
-having COUNT(cr.customer_id) > 300;
+''sql  
+select	concat(sf.first_name , ' ', sf.last_name)  as 'ФИО сотрудника',  
+		cy.city as 'Город',  
+		COUNT(cr.customer_id) as 'Количество пользователей магазина'  		
+from sakila.store s  
+inner join sakila.staff sf on sf.store_id = s.store_id   
+inner join sakila.customer cr on cr.store_id = s.store_id  
+inner join sakila.address a on a.address_id = s.address_id   
+inner join sakila.city cy on cy.city_id = a.city_id   
+group by sf.staff_id, cy.city_id   
+having COUNT(cr.customer_id) > 300;  
 ''
 
 
