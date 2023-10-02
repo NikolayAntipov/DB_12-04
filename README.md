@@ -38,9 +38,9 @@ where flm.`length` > (select AVG(`length`) from sakila.film);
 ```sql
 select	t.amount_of_payments as 'Сумма платежей',
 	t.month_of_payments as 'Месяц платежей',
-	(select count(r.rental_id)
-	from sakila.rental r
-	where DATE_FORMAT(r.rental_date, '%M %Y') = t.month_of_payments) as 'Количество аренд'
+	(select count(rntl.rental_id)
+	from sakila.rental rntl
+	where DATE_FORMAT(rntl.rental_date, '%M %Y') = t.month_of_payments) as 'Количество аренд'
 from (
   select SUM(p.amount) 'amount_of_payments', DATE_FORMAT(p.payment_date, '%M %Y') as 'month_of_payments' 
   from sakila.payment p 
