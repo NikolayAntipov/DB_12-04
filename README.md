@@ -35,3 +35,16 @@ where flm.`length` > (select AVG(`length`) from sakila.film);
 
 ### Задание 3
 Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
+```sql
+select	t.amount_of_payments as 'Сумма платежей',
+	t.month_of_payments as 'Месяц платежей',
+	(select count(r.rental_id)
+	from sakila.rental r
+	where DATE_FORMAT(r.rental_date, '%M %Y') = t.month_of_payments) as 'Количество аренд'
+from (
+  select SUM(p.amount) 'amount_of_payments', DATE_FORMAT(p.payment_date, '%M %Y') as 'month_of_payments' 
+  from sakila.payment p 
+  group by DATE_FORMAT(p.payment_date, '%M %Y')) t
+order by t.amount_of_payments desc  
+limit 1;
+```
